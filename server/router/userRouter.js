@@ -1,6 +1,7 @@
 import express from "express";
 import {
   addNewAdmin,
+  addNewDoctor,
   getAllDoctors,
   getUserDetails,
   login,
@@ -23,5 +24,6 @@ router.get("/admin/me", isAdminAuthenticated, getUserDetails);
 router.get("/patient/me", isPatientAuthenticated, getUserDetails);
 router.get("/admin/logout", isAdminAuthenticated, logoutAdmin);
 router.get("/patient/logout", isPatientAuthenticated, logoutPatient);
+router.post("/doctor/add", isAdminAuthenticated, addNewDoctor);
 
 export default router;
