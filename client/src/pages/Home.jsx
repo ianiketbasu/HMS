@@ -10,7 +10,7 @@ function Home() {
         title={"Welcome XYZ Care Medical. Health care provider"}
         imageUrl={"/hero.png"}
       />
-      <Biography imgUrl={"/about.png"} />
+      <Biography imageUrl={"/about.png"} />
       <Department />
       <MessageForm />
     </>

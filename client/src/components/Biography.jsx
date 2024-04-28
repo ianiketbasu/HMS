@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 
-function Biography({ imgUrl }) {
+function Biography({ imageUrl }) {
   return (
     <div className="container biography">
       <div className="banner">
-        <img src={imgUrl} alt="AboutImg" />
+      <img src={imageUrl} alt="whoweare" />
       </div>
       <div className="banner">
         <p>Biography</p>

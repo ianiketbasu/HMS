@@ -1,12 +1,11 @@
-/* eslint-disable no-unused-vars */
 import { useContext, useState } from "react";
 import { Context } from "../main";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import axios from "axios";
 import backendLink from "../utils/backendLink";
-import { toast } from "react-toastify";
 
-function Register() {
+const AddNewAdmin = () => {
   const { isAuthenticated, setIsAuthenticated } = useContext(Context);
 
   const [firstName, setFirstName] = useState("");
@@ -17,33 +16,19 @@ function Register() {
   const [dob, setDob] = useState("");
   const [gender, setGender] = useState("");
   const [password, setPassword] = useState("");
-  const role = "Patient";
 
   const navigateTo = useNavigate();
 
-  const handleRegistration = async (e) => {
+  const handleAddNewAdmin = async (e) => {
     e.preventDefault();
     try {
       await axios
         .post(
-          `${backendLink}/api/v1/user/patient/register`,
-          {
-            firstName,
-            lastName,
-            email,
-            phone,
-            nic,
-            dob,
-            gender,
-            password,
-            role,
-          },
-
+          `${backendLink}/api/v1/user/admin/add`,
+          { firstName, lastName, email, phone, nic, dob, gender, password },
           {
             withCredentials: true,
-            headers: {
-              "Content-Type": "application/json",
-            },
+            headers: { "Content-Type": "application/json" },
           }
         )
         .then((res) => {
@@ -64,20 +49,16 @@ function Register() {
     }
   };
 
-  if (isAuthenticated) {
-    return <Navigate to={"/"} />;
+  if (!isAuthenticated) {
+    return <Navigate to={"/login"} />;
   }
 
   return (
-    <>
-      <div className="container form-component register-form">
-        <h2>Sign Up</h2>
-        <p>Please Sign Up To Continue</p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat culpa
-          voluptas expedita itaque ex, totam ad quod error?
-        </p>
-        <form onSubmit={handleRegistration}>
+    <section className="page">
+      <section className="container form-component add-admin-form">
+        <img src="/logo.png" alt="logo" className="logo" />
+        <h1 className="form-title">ADD NEW ADMIN</h1>
+        <form onSubmit={handleAddNewAdmin}>
           <div>
             <input
               type="text"
@@ -133,28 +114,13 @@ function Register() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <div
-            style={{
-              gap: "10px",
-              justifyContent: "flex-end",
-              flexDirection: "row",
-            }}
-          >
-            <p style={{ marginBottom: 0 }}>Already Registered?</p>
-            <Link
-              to={"/signin"}
-              style={{ textDecoration: "none", color: "#271776ca" }}
-            >
-              Login Now
-            </Link>
-          </div>
           <div style={{ justifyContent: "center", alignItems: "center" }}>
-            <button type="submit">Register</button>
+            <button type="submit">ADD NEW ADMIN</button>
           </div>
         </form>
-      </div>
-    </>
+      </section>
+    </section>
   );
-}
+};
 
-export default Register;
+export default AddNewAdmin;

@@ -5,6 +5,7 @@ import { Context } from "../main";
 import backendLink from "../utils/backendLink";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 function Navbar() {
   const [show, setShow] = useState(false);
@@ -45,7 +46,7 @@ function Navbar() {
               About Us
             </Link>
           </div>
-          {!isAuthenticated ? (
+          {isAuthenticated ? (
             <button className="logoutBtn btn" onClick={handleLogout}>
               LOGOUT
             </button>
@@ -54,6 +55,9 @@ function Navbar() {
               LOGIN
             </button>
           )}
+        </div>
+        <div className="hamburger" onClick={() => setShow(!show)}>
+          <GiHamburgerMenu />
         </div>
       </nav>
     </>
